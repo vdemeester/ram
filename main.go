@@ -17,8 +17,11 @@ import (
 var (
 	defaultExcludes = []string{
 		"**/*.swp",
+		"**/*.swx",
 		"vendor/",
 		".git",
+		".ignore",
+		".gitignore",
 		"**/*file",
 		"*.lock",
 	}
