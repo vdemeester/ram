@@ -11,6 +11,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 	"github.com/vdemeester/ram/runner"
+	prefixed "github.com/x-cray/logrus-prefixed-formatter"
 )
 
 var (
@@ -113,6 +114,9 @@ func cleanCommand(command []string) []string {
 }
 
 func setupLogging(opts *options) {
+	formatter := new(prefixed.TextFormatter)
+	formatter.DisableTimestamp = true
+	log.SetFormatter(formatter)
 	if opts.verbose {
 		log.SetLevel(log.DebugLevel)
 	}
