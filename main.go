@@ -18,6 +18,7 @@ var (
 	defaultExcludes = []string{
 		"**/*.swp",
 		"**/*.swx",
+		"vendor",
 		"vendor/**",
 		".git",
 		".ignore",
