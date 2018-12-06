@@ -1,4 +1,4 @@
-# Ram 🐏 — golang opiniated continuous testing tool
+# Ram 🐏 — a golang opiniated continuous testing tool
 
 This is a very opiniated « continuous testing » tool for =Go=.
 In a nutshell it does : watch a folder (gopath or not…) and execute
@@ -7,6 +7,16 @@ tests when file changes.
 It supports:
 - changing code in a package will only re-run tests on this package
 - changing a test code, it will only re-run *that* test
+
+# Install
+
+```shell
+go get -u github.com/vdemeester/ram
+```
+
+# Examples
+
+On[`knative/build-pipeline`](https://github.com/knative/build-pipeline) 🎉
 
 ```shell
 $ ram -d ./pkg -d ./cmd -- -v
@@ -24,7 +34,6 @@ ok      github.com/knative/build-pipeline/pkg/foo       (cached)
 ┌────┬────────────────┬──────────────┐
 │ OK │ pkg/foo/foo.go │ 299.754067ms │
 └────┴────────────────┴──────────────┘
- WARN Failed to stat pkg/foo/.foo_test.go.swx: stat pkg/foo/.foo_test.go.swx: no such file or directory
 ┌─────────────┬──────────────────────────────────────────┐
 │ filewatcher │ go test -v ./pkg/foo -test.run ^TestFoo$ │
 └─────────────┴──────────────────────────────────────────┘
@@ -47,3 +56,11 @@ ok      github.com/knative/build-pipeline/pkg/foo       (cached)
 └────┴─────────────────────┴──────────────┘
 
 ```
+
+# Usage
+
+See `ram --help`
+
+# Credits
+
+Huge props to [@dnephin](https://github.com/dnephin) for [`filewatcher`](https://github.com/dnephin/filewatcher) 🤗
