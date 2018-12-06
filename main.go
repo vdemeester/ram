@@ -71,9 +71,6 @@ func main() {
 	opts := setupFlags(os.Args)
 	setupLogging(opts)
 
-	if len(opts.command) == 0 {
-		log.Fatalf("A command argument is required.")
-	}
 	run(opts)
 }
 
