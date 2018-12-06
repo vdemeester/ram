@@ -16,7 +16,7 @@ go get -u github.com/vdemeester/ram
 
 # Examples
 
-On[`knative/build-pipeline`](https://github.com/knative/build-pipeline) 🎉
+On [`knative/build-pipeline`](https://github.com/knative/build-pipeline) 🎉
 
 ```shell
 $ ram -d ./pkg -d ./cmd -- -v
