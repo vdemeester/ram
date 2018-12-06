@@ -108,7 +108,6 @@ func (runner *Runner) buildCommand(filename string) []string {
 		return key
 	}
 
-	log.Debug("xxxxxxxxxxxxxxxxxxx")
 	output := []string{}
 	switch {
 	case strings.HasSuffix(filename, "_test.go"):
@@ -147,7 +146,9 @@ func (v *testVisitor) Visit(n ast.Node) ast.Visitor {
 	}
 	switch d := n.(type) {
 	case *ast.FuncDecl:
-		v.tests = append(v.tests, d.Name.Name)
+		if strings.HasPrefix(d.Name.Name, "Test") {
+			v.tests = append(v.tests, d.Name.Name)
+		}
 	}
 	return v
 }
