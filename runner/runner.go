@@ -1,6 +1,7 @@
 package runner
 
 import (
+	"bufio"
 	"context"
 	"go/ast"
 	"go/parser"
@@ -116,6 +117,10 @@ func (runner *Runner) buildCommand(filename string) []string {
 		if err != nil {
 			log.Warn(err)
 		}
+		buildtag, err := detectBuildTags(filename)
+		if err != nil {
+			log.Warn(err)
+		}
 		ff, err := parser.ParseFile(fs, filename, f, parser.AllErrors)
 		if err != nil {
 			log.Warn(err)
@@ -124,6 +129,9 @@ func (runner *Runner) buildCommand(filename string) []string {
 		ast.Walk(v, ff)
 		for _, arg := range runner.command {
 			output = append(output, os.Expand(arg, mapping))
+		}
+		if buildtag != "" {
+			output = append(output, "-tags="+buildtag)
 		}
 		if len(v.tests) != 0 {
 			output = append(output, "-test.run", "^"+strings.Join(v.tests, "|")+"$")
@@ -134,6 +142,26 @@ func (runner *Runner) buildCommand(filename string) []string {
 		}
 	}
 	return output
+}
+
+func detectBuildTags(filename string) (string, error) {
+	f, err := os.Open(filename)
+	if err != nil {
+		return "", err
+	}
+	sc := bufio.NewScanner(f)
+	if sc.Scan() {
+		line := sc.Text()
+		if strings.HasPrefix(line, "// +build") {
+			buildtags := strings.Fields(strings.TrimPrefix(line, "// +build "))
+			if len(buildtags) != 1 {
+				log.Warnf("detected multiple build tags, not supported : %s", line)
+				return "", nil
+			}
+			return buildtags[0], nil
+		}
+	}
+	return "", nil
 }
 
 type testVisitor struct {
