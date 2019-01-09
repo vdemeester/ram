@@ -110,14 +110,17 @@ func (runner *Runner) buildCommand(filename string) []string {
 	}
 
 	output := []string{}
+	buildtag, err := detectBuildTags(filename)
+	if err != nil {
+		log.Warn(err)
+	}
+	if buildtag != "" {
+		output = append(output, "-tags="+buildtag)
+	}
 	switch {
 	case strings.HasSuffix(filename, "_test.go"):
 		fs := token.NewFileSet()
 		f, err := os.Open(filename)
-		if err != nil {
-			log.Warn(err)
-		}
-		buildtag, err := detectBuildTags(filename)
 		if err != nil {
 			log.Warn(err)
 		}
@@ -129,9 +132,6 @@ func (runner *Runner) buildCommand(filename string) []string {
 		ast.Walk(v, ff)
 		for _, arg := range runner.command {
 			output = append(output, os.Expand(arg, mapping))
-		}
-		if buildtag != "" {
-			output = append(output, "-tags="+buildtag)
 		}
 		if len(v.tests) != 0 {
 			output = append(output, "-test.run", "^"+strings.Join(v.tests, "|")+"$")
