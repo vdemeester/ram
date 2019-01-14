@@ -114,6 +114,9 @@ func (runner *Runner) buildCommand(filename string) []string {
 	if err != nil {
 		log.Warn(err)
 	}
+	for _, arg := range runner.command {
+		output = append(output, os.Expand(arg, mapping))
+	}
 	if buildtag != "" {
 		output = append(output, "-tags="+buildtag)
 	}
@@ -130,15 +133,8 @@ func (runner *Runner) buildCommand(filename string) []string {
 		}
 		v := &testVisitor{}
 		ast.Walk(v, ff)
-		for _, arg := range runner.command {
-			output = append(output, os.Expand(arg, mapping))
-		}
 		if len(v.tests) != 0 {
 			output = append(output, "-test.run", "^"+strings.Join(v.tests, "|")+"$")
-		}
-	default:
-		for _, arg := range runner.command {
-			output = append(output, os.Expand(arg, mapping))
 		}
 	}
 	return output
