@@ -26,7 +26,7 @@ var (
 		"**/*file",
 		"*.lock",
 	}
-	defaultIdleTimeout = 90*time.Minute
+	defaultIdleTimeout = 90 * time.Minute
 )
 
 type options struct {
@@ -48,7 +48,7 @@ func setupFlags(args []string) *options {
 	flags.BoolVarP(&opts.quiet, "quiet", "q", false, "Quiet")
 	flags.StringSliceVarP(&opts.exclude, "exclude", "x", nil, "Exclude file patterns")
 	flags.StringSliceVarP(&opts.dirs, "directory", "d", []string{"."}, "Directories to watch")
-	flags.IntVarP(&opts.depth, "depth", "L", 5, "Descend only level directories deep")
+	flags.IntVarP(&opts.depth, "depth", "L", 8, "Descend only level directories deep")
 	flags.DurationVar(&opts.idleTimeout, "idle-timeout", defaultIdleTimeout,
 		"Exit after idle timeout")
 	flags.VarP(&opts.events, "event", "e",
