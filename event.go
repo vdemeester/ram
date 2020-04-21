@@ -1,4 +1,4 @@
-package main
+package main // import "go.sbr.pm/ram"
 
 import (
 	"fmt"

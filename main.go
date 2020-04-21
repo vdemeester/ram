@@ -1,4 +1,4 @@
-package main
+package main // import "go.sbr.pm/ram"
 
 import (
 	"fmt"
@@ -10,8 +10,8 @@ import (
 	"github.com/fsnotify/fsnotify"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
-	"github.com/vdemeester/ram/runner"
 	prefixed "github.com/x-cray/logrus-prefixed-formatter"
+	"go.sbr.pm/ram/runner"
 )
 
 var (

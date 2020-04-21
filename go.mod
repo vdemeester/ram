@@ -1,4 +1,4 @@
-module github.com/vdemeester/ram
+module go.sbr.pm/ram
 
 require (
 	github.com/dnephin/filewatcher v0.3.2

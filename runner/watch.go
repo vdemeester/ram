@@ -1,13 +1,13 @@
-package runner
+package runner // import "go.sbr.pm/ram/runner"
 
 import (
 	"context"
 	"os"
 	"time"
 
-	log "github.com/sirupsen/logrus"
 	"github.com/dnephin/filewatcher/files"
 	"github.com/fsnotify/fsnotify"
+	log "github.com/sirupsen/logrus"
 )
 
 // WatchOptions passed to watch

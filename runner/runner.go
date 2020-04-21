@@ -1,4 +1,4 @@
-package runner
+package runner // import "go.sbr.pm/ram/runner"
 
 import (
 	"bufio"
